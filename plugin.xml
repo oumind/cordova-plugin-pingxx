@@ -1,0 +1,30 @@
+<?xml version='1.0' encoding='utf-8'?>
+<plugin id="io.oumind.cordova.pingxx" version="0.1"
+        xmlns="http://apache.org/cordova/ns/plugins/1.0">
+    <name>pingxx</name>
+    <description>cordova plugin for pingxx</description>
+    <author>oumind</author>
+    <keywords>pingxx,pay</keywords>
+    <license>Apache 2.0 License</license>
+
+    <engines>
+        <engine name="cordova" version=">=3.4.0"/>
+    </engines>
+
+    <asset src="www/pingxx.js" target="js/pingxx.js"/>
+
+    <js-module src="www/pingxx.js" name="pingxx">
+        <clobbers target="pingxx" />
+    </js-module>
+
+    <platform name="ios">
+        <config-file target="config.xml" parent="/widget">
+            <feature name="Pingxx">
+                <param name="ios-package" value="OUMPingxx" />
+            </feature>
+        </config-file>
+
+        <header-file src="src/ios/OUMPingxx.h" target-dir="PingxxPlugin"/>
+        <source-file src="src/ios/OUMPingxx.m" target-dir="PingxxPlugin"/>
+    </platform>
+</plugin>
