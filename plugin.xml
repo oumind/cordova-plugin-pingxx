@@ -7,6 +7,8 @@
     <keywords>pingxx,pay</keywords>
     <license>Apache 2.0 License</license>
 
+    <preference name="URL_SCHEME" />
+    
     <engines>
         <engine name="cordova" version=">=3.4.0"/>
     </engines>
@@ -18,9 +20,42 @@
     </js-module>
 
     <platform name="ios">
+        <!-- framework -->
+        <framework src="CFNetwork.framework" />
+        <framework src="SystemConfiguration.framework" />
+        <framework src="Security.framework" />
+        <framework src="libc++.dylib" />
+        <framework src="libz.dylib" />
+        <framework src="libsqlite3.0.dylib" />
+
+        <!-- Channels -->
+        <!-- Alipay -->
+        <resource-file src="libs/PingxxLib/Channels/Alipay/AlipaySDK.bundle"/>
+        <framework src="libs/PingxxLib/Channels/Alipay/AlipaySDK.framework" custom="true"/>
+        <source-file src="libs/PingxxLib/Channels/Alipay/libpingpp+alipay.a" framework="true"/>
+        <!-- wx -->
+        <source-file src="libs/PingxxLib/Channels/Wx/libpingpp+wx.a" framework="true"/>
+        <source-file src="libs/PingxxLib/Channels/Wx/libWeChatSDK.a" framework="true"/>
+
+        <!-- pingxx -->
+        <resource-file src="libs/PingxxLib/Pingpp.bundle"/>
+        <source-file src="libs/PingxxLib/libpingpp.a" framework="true"/>
+        <header-file src="libs/PingxxLib/Pingpp.h"/>
+
+        <config-file target="*-Info.plist" parent="CFBundleURLTypes">
+            <array>
+                <dict>
+                    <key>CFBundleURLSchemes</key>
+                    <array>
+                        <string>$URL_SCHEME</string>
+                    </array>
+                </dict>
+            </array>
+        </config-file>
+
         <config-file target="config.xml" parent="/widget">
             <feature name="Pingxx">
-                <param name="ios-package" value="OUMPingxx" />
+                <param name="ios-package" value="OUMPingxx"/>
             </feature>
         </config-file>
 

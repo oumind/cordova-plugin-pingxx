@@ -4,7 +4,8 @@
   },
   "globals": {
     "cordova": true,
-    "module": true
+    "module": true,
+    "require": true
   },
   "rules": {
     "quotes": false,
