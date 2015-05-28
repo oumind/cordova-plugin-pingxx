@@ -1,2 +1,2 @@
-# cordova-plugin-pingxx
-pingxx的cordova插件
+# using
+see [oumind/cordova-pingxx-demo](https://github.com/oumind/cordova-pingxx-demo)
