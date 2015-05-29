@@ -8,12 +8,14 @@
 {
 
     NSString* data = [[command arguments] objectAtIndex:0];
+    NSString* urlScheme = [[command arguments] objectAtIndex:1];
+
     NSLog(@"%@", data);
-    
+
     UIViewController * __weak weakSelf = self.viewController;
     dispatch_async(dispatch_get_main_queue(), ^{
         [Pingpp createPayment:data viewController:weakSelf
-                appURLScheme:@"oumind"
+                appURLScheme: urlScheme
                 withCompletion:^(NSString* result, PingppError* error) {
             //渠道为银联、百度钱包或者渠道为支付宝但未安装支付宝钱包时，从此返回
             NSLog(@"completion block: %@", result);
@@ -27,13 +29,13 @@
 - (void)handleOpenURL:(NSNotification*)notification
 {
     NSURL* url = [notification object];
-    
+
     NSLog(@"handleOpenURL: %@", [url description]);
-    
+
     if (![url isKindOfClass:[NSURL class]]) {
         return;
     }
-    
+
     [Pingpp handleOpenURL:url withCompletion:^(NSString* result, PingppError* error) {
         [self finishPay:result error:error];
     }];
@@ -49,7 +51,7 @@
     } else {
         NSLog(@"PingppError: code=%lu msg=%@", (unsigned long)error.code, [error getMsg]);
     }
-    
+
     NSString* jsString = [NSString stringWithFormat:@"%@('%@',%lu,'%@');",
                           @"cordova.require('io.oumind.cordova.pingxx.pingxx')._finishPay",
                           result,
